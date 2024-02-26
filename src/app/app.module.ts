@@ -9,6 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { KanbanListComponent } from './components/kanban-list/kanban-list.component'
+import { HttpClientModule } from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { KanbanListComponent } from './components/kanban-list/kanban-list.compon
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

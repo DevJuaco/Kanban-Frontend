@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Frontend-Kanban:build:production"
+              "buildTarget": "Frontend-Kanban:build:production"
             },
             "development": {
-              "browserTarget": "Frontend-Kanban:build:development"
+              "buildTarget": "Frontend-Kanban:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Frontend-Kanban:build"
+            "buildTarget": "Frontend-Kanban:build"
           }
         },
         "test": {

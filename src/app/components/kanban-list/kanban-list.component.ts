@@ -1,5 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import { Task } from 'src/app/interfaces/task';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-kanban-list',
@@ -8,9 +10,15 @@ import { Component } from '@angular/core';
 })
 export class KanbanListComponent {
 
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+  constructor(private taskService: TasksService) {
+    this.loadTasks()
+  }
 
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  todo: string[] = [];
+
+  inProgress = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+
+  finished = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -25,4 +33,9 @@ export class KanbanListComponent {
     }
   }
 
+  loadTasks() {
+    this.taskService.getTaskName().subscribe((data) => {
+      this.todo = data
+    })
+  }
 }

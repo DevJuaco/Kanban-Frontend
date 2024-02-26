@@ -1,3 +1,4 @@
+<div class="list-tasks">
 <div class="example-container">
     <h2>To do</h2>
   
@@ -5,7 +6,7 @@
       cdkDropList
       #todoList="cdkDropList"
       [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doneList]"
+      [cdkDropListConnectedTo]="[inProgressList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
       @for (item of todo; track item) {
@@ -15,18 +16,36 @@
   </div>
   
   <div class="example-container">
-    <h2>Done</h2>
+    <h2>in progress</h2>
   
     <div
       cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done" 
-      [cdkDropListConnectedTo]="[todoList]"
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="inProgress" 
+      [cdkDropListConnectedTo]="[todoList, finishedList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      *ngFor= "item of done" 
+      @for (item of inProgress; track item) {
         <div class="example-box" cdkDrag>{{item}}</div>
+      }
     </div>
   </div>
+
+  <div class="example-container">
+    <h2>finished</h2>
+  
+    <div
+      cdkDropList
+      #finishedList="cdkDropList"
+      [cdkDropListData]="finished" 
+      [cdkDropListConnectedTo]="[todoList, inProgressList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of finished; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+      }
+    </div>
+  </div>
+</div>
   
   
