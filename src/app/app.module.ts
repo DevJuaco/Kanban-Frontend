@@ -11,6 +11,7 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
 import { KanbanListComponent } from './components/kanban-list/kanban-list.component'
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     DragDropModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
-import { Task } from 'src/app/interfaces/task';
+import { Task, Todo } from 'src/app/interfaces/task';
+import { TasksDropService } from 'src/app/services/tasks-drop.service';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
@@ -10,15 +11,15 @@ import { TasksService } from 'src/app/services/tasks.service';
 })
 export class KanbanListComponent {
 
-  constructor(private taskService: TasksService) {
+  constructor(private taskService: TasksService, private tasksDropService: TasksDropService) {
     this.loadTasks()
   }
 
-  todo: string[] = [];
+  todo: string[] = []
 
-  inProgress = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  inProgress: string[] = []
 
-  finished = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  finished: string[] = []
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -34,8 +35,17 @@ export class KanbanListComponent {
   }
 
   loadTasks() {
-    this.taskService.getTaskName().subscribe((data) => {
-      this.todo = data
+    this.tasksDropService.todoList.subscribe((todo: string[]) => {
+      console.log(todo)
+      this.todo = todo
     })
+  }
+
+  onDragStarted(item: any, list: string) {
+    console.log(`Se ha comenzado a arrastrar el elemento ${item.name} de la lista ${list}`);
+  }
+
+  onDragEnded(item: any, list: string) {
+    console.log(`Se ha terminado de arrastrar el elemento ${item.name} de la lista ${list}`);
   }
 }

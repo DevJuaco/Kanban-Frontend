@@ -24,4 +24,8 @@ export class TasksService {
       map(tasks => tasks.map(task => task.name))
     )
   }
+
+  addNewTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.BASE_URL}/tasks`, task)
+  }
 }
