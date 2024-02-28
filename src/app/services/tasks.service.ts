@@ -19,13 +19,15 @@ export class TasksService {
     return this.http.get<Task[]>(`${this.BASE_URL}/tasks`)
   }
 
-  getTaskName(): Observable<string[]> {
-    return this.getAlltask().pipe(
-      map(tasks => tasks.map(task => task.name))
-    )
+  getTasksByStatus(status: number): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.BASE_URL}/tasks/status/${status}`)
   }
 
   addNewTask(task: Task): Observable<Task> {
     return this.http.post<Task>(`${this.BASE_URL}/tasks`, task)
+  }
+
+  updateTask(taskId: string, task: Task) {
+    return this.http.put<Task>(`${this.BASE_URL}/tasks/${taskId}`, task)
   }
 }

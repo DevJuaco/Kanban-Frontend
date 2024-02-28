@@ -11,7 +11,8 @@ export interface finished {
 }
 
 export interface Task {
-    id: string;
+    id?: string;
     name: string;
     status: number;
 }
+
