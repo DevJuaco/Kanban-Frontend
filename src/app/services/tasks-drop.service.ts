@@ -12,6 +12,8 @@ export class TasksDropService {
   inProgressList = new BehaviorSubject<Task[]>([])
   finishedList = new BehaviorSubject<Task[]>([])
 
+  AllTasks = new BehaviorSubject<Task[]>([])
+
   constructor(private taskService: TasksService) {
     this.addTodoList()
     this.addInProgressList()
@@ -20,22 +22,31 @@ export class TasksDropService {
 
   addTodoList() {
     this.taskService.getTasksByStatus(1).subscribe((data) => {
-      //const taskName = data.map(task => task.name)
       this.todoList.next(data)
     })
   }
 
   addInProgressList() {
     this.taskService.getTasksByStatus(2).subscribe((data) => {
-      //const taskName = data.map(task => task.name)
       this.inProgressList.next(data)
     })
   }
 
   addFinishedList() {
     this.taskService.getTasksByStatus(3).subscribe((data) => {
-      //const taskName = data.map(task => task.name)
       this.finishedList.next(data)
+    })
+  }
+
+  refreshList() {
+    this.addTodoList()
+    this.addInProgressList()
+    this.addFinishedList()
+  }
+
+  getAllTasks() {
+    this.taskService.getAlltask().subscribe((data) => {
+      this.AllTasks.next(data)
     })
   }
 

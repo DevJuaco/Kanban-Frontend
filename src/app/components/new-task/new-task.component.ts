@@ -24,7 +24,11 @@ export class NewTaskComponent {
   createTask() {
     this.taskservice.addNewTask(this.taskForm.value).subscribe((() => {
       console.log(this.taskForm.value)
-      this.tasksDropService.loadTasks()
+      this.tasksDropService.addTodoList()
+      this.taskForm.patchValue({
+        name: '',
+        status: 1
+      })
     }))
   }
 }

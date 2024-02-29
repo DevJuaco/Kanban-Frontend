@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="list-tasks">
 <div class="example-container">
     <h2>To do</h2>
@@ -10,9 +11,11 @@
       class="example-list"
       (cdkDropListDropped)="drop($event, 'todo')">
       @for (item of todo; track item) {
-        <div class="example-box" 
-        cdkDrag
-      >{{item.name}}</div>
+        <div class="example-box" cdkDrag [cdkDragData]="item">{{item.name}}
+          <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" (click)="deleteTask(item.id)">
+            <mat-icon><i class="bi bi-x-circle-fill"></i></mat-icon>
+          </button>
+        </div>
       }
     </div>
   </div>
@@ -28,7 +31,11 @@
       class="example-list"
       (cdkDropListDropped)="drop($event, 'inProgress')">
       @for (item of inProgress; track item) {
-        <div class="example-box" cdkDrag>{{item.name}}</div>
+        <div class="example-box" cdkDrag [cdkDragData]="item">{{item.name}}
+          <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" (click)="deleteTask(item.id)">
+            <mat-icon><i class="bi bi-x-circle-fill"></i></mat-icon>
+          </button>
+        </div>
       }
     </div>
   </div>
@@ -44,10 +51,14 @@
       class="example-list"
       (cdkDropListDropped)="drop($event, 'finished')">
       @for (item of finished; track item) {
-        <div class="example-box" cdkDrag>{{item.name}}</div>
+        <div class="example-box" cdkDrag [cdkDragData]="item">{{item.name}}
+          <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" (click)="deleteTask(item.id)">
+            <mat-icon><i class="bi bi-x-circle-fill"></i></mat-icon>
+          </button>
+        </div>
       }
     </div>
   </div>
-</div>
+
   
   

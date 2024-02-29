@@ -30,4 +30,8 @@ export class TasksService {
   updateTask(taskId: string, task: Task) {
     return this.http.put<Task>(`${this.BASE_URL}/tasks/${taskId}`, task)
   }
+
+  deleteTask(taskId?: string) {
+    return this.http.delete(`${this.BASE_URL}/tasks/${taskId}`)
+  }
 }

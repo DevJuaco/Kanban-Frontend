@@ -1,8 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
-import { Task, Todo } from 'src/app/interfaces/task';
+import { Task } from 'src/app/interfaces/task';
 import { TasksDropService } from 'src/app/services/tasks-drop.service';
 import { TasksService } from 'src/app/services/tasks.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-kanban-list',
@@ -31,16 +32,25 @@ export class KanbanListComponent {
 
   drop(event: CdkDragDrop<Task[]>, listName: string) {
 
+  const taskId = event.item.data.id
+  const taskName = event.item.data.name
+  
+  console.log('id de la tarea ' + taskId)
+
   switch (listName) {
     case 'todo':
       console.log('item movido a array todo')
-      //this.taskService.updateTask()
-      break;
+      this.updateTaskStatus(taskId, {name: taskName, status: 1})
+    break;
+    
     case 'inProgress':
       console.log('iem movido a inprogress')
+      this.updateTaskStatus(taskId, {name: taskName, status: 2})
       break;
+
     case 'finished':
-      console.log('item movido a finished') 
+      console.log('item movido a finished')
+      this.updateTaskStatus(taskId, {name: taskName, status: 3})
   }
 
     if (event.previousContainer === event.container) {
@@ -85,4 +95,34 @@ export class KanbanListComponent {
       this.finished = finished
     })
   }
+
+  updateTaskStatus(taskId: string, task: Task) {
+    this.taskService.updateTask(taskId, task).subscribe((data) => {
+      console.log(data)
+    })
+  }
+
+  deleteTask(id?: string) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.taskService.deleteTask(id).subscribe(() => {
+          this.tasksDropService.refreshList()
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
+
 }

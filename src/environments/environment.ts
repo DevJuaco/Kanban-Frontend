@@ -1,3 +1,3 @@
 export const environment = {
-    baseUrl: 'http://localhost:5000/kanban-api-9b171/us-central1/app/api'
+    baseUrl: 'https://app-dl5zqnf7da-uc.a.run.app/api'
 }
